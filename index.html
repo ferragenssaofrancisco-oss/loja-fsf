@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferragens São Francisco — Loja Online</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230B3D6B'/><text x='50' y='68' font-size='52' font-weight='900' text-anchor='middle' fill='%23F2B705' font-family='Arial'>F</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul-900:#06243F;--azul-800:#0B3D6B;--azul-700:#134E8C;--azul-600:#1A63AD;--azul-100:#E8F1FA;
+  --amarelo-500:#F2B705;--amarelo-600:#D9A300;--amarelo-100:#FFF6DC;
+  --cinza-bg:#EFF1F3;--texto:#1C2630;--texto-mut:#5B6B7A;
+  --verde:#1F9D55;--vermelho:#E0392F;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-size:15px;scroll-behavior:smooth}
+body{background:var(--cinza-bg);min-height:100vh;color:var(--texto)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#c7d0d8;border-radius:99px}
+input,select,button,textarea{font-family:inherit;font-size:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+
+/* ══════════ TOPBAR ══════════ */
+.topbar{background:var(--azul-900);position:sticky;top:0;z-index:100;border-bottom:4px solid var(--amarelo-500)}
+.topbar::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(242,183,5,.05) 0 3px,transparent 3px 22px);pointer-events:none}
+.topbar-inner{max-width:1500px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;position:relative;z-index:1;flex-wrap:wrap}
+.logo-mark{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-emblem{width:40px;height:40px;background:var(--amarelo-500);display:flex;align-items:center;justify-content:center;transform:skew(-8deg);box-shadow:3px 3px 0 rgba(0,0,0,.3);flex-shrink:0}
+.logo-emblem svg{width:22px;height:22px;transform:skew(8deg)}
+.logo-text-wrap{line-height:1.05}
+.logo-eyebrow{font-family:'Oswald',sans-serif;font-size:9px;color:var(--amarelo-500);text-transform:uppercase;letter-spacing:2px;font-weight:600}
+.logo-main{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;color:#fff;letter-spacing:.2px;text-transform:uppercase;white-space:nowrap}
+.logo-main .hl{color:var(--amarelo-500)}
+
+.topbar-search{flex:1;min-width:180px;position:relative}
+.topbar-search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9AA9B6;pointer-events:none}
+.topbar-search input{width:100%;background:#fff;border:2px solid transparent;border-radius:8px;padding:11px 14px 11px 38px;font-size:13.5px;outline:none}
+.topbar-search input:focus{border-color:var(--amarelo-500)}
+
+.topbar-cart{position:relative;background:var(--amarelo-500);color:var(--azul-900);border:none;padding:11px 18px;border-radius:8px;font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0;transition:background .15s}
+.topbar-cart:hover{background:var(--amarelo-600)}
+.topbar-cart .badge{position:absolute;top:-8px;right:-8px;background:var(--vermelho);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;border:2px solid #fff}
+
+.topbar-wa{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.16);color:#cdd9e3;padding:10px 16px;border-radius:8px;font-size:12.5px;font-weight:600;flex-shrink:0}
+.topbar-wa:hover{background:rgba(255,255,255,.16);color:#fff}
+
+/* ══════════ HERO / CARROSSEL DE OFERTAS ══════════ */
+.hero-carousel{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--azul-900),var(--azul-800));border-bottom:4px solid var(--amarelo-500)}
+.hero-carousel::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(242,183,5,.05) 0 3px,transparent 3px 26px);pointer-events:none}
+.hero-track{display:flex;transition:transform .5s ease;position:relative;z-index:1}
+.hero-slide{min-width:100%;padding:36px 24px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+.hero-slide-text{max-width:480px;text-align:left}
+.hero-slide-tag{display:inline-block;background:var(--amarelo-500);color:var(--azul-900);font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;padding:5px 14px;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);margin-bottom:14px}
+.hero-slide h2{font-family:'Oswald',sans-serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:#fff;text-transform:uppercase;line-height:1.15}
+.hero-slide h2 .hl{color:var(--amarelo-500)}
+.hero-slide p{color:#C9DCEC;margin-top:10px;font-size:13.5px;max-width:380px}
+.hero-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:2}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;transition:background .2s}
+.hero-dot.active{background:var(--amarelo-500);width:22px;border-radius:4px}
+.hero-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);color:#fff;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;transition:background .15s}
+.hero-arrow:hover{background:rgba(255,255,255,.22)}
+.hero-arrow.left{left:14px}
+.hero-arrow.right{right:14px}
+
+/* ══════════ LAYOUT PRINCIPAL: SIDEBAR + GRID ══════════ */
+.shop-layout{max-width:1500px;margin:0 auto;padding:20px;display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:start}
+
+/* ── SIDEBAR DE FILTROS ── */
+.sidebar{background:#fff;border:2px solid #DADFE3;position:sticky;top:90px}
+.sidebar-head{background:var(--azul-900);color:#fff;padding:12px 16px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:center;justify-content:between;gap:8px}
+.filter-group{border-bottom:1px solid #ECEFF1;padding:14px 16px}
+.filter-group:last-child{border-bottom:none}
+.filter-group-title{font-family:'Oswald',sans-serif;font-size:11.5px;font-weight:600;color:var(--texto);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.filter-group-title svg{width:14px;height:14px;color:#9AA9B6;transition:transform .2s}
+.filter-group.collapsed .filter-group-title svg{transform:rotate(-90deg)}
+.filter-group.collapsed .filter-list{display:none}
+.filter-list{display:flex;flex-direction:column;gap:7px;max-height:240px;overflow-y:auto}
+.filter-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--texto-mut);cursor:pointer}
+.filter-item input{accent-color:var(--azul-700);cursor:pointer}
+.filter-item:hover{color:var(--texto)}
+.filter-item .count{margin-left:auto;color:#aab6c0;font-size:11px}
+.filter-clear{font-size:11.5px;color:var(--azul-700);font-weight:600;cursor:pointer;text-decoration:underline;margin-top:8px;display:inline-block}
+.price-range{display:flex;gap:8px;align-items:center}
+.price-range input{width:100%;border:1.5px solid #DADFE3;border-radius:6px;padding:6px 8px;font-size:12px}
+
+/* ── MOBILE FILTER TOGGLE ── */
+.mobile-filter-btn{display:none;background:#fff;border:2px solid var(--azul-900);color:var(--azul-900);font-family:'Oswald',sans-serif;font-weight:600;font-size:12.5px;text-transform:uppercase;padding:10px 16px;border-radius:0;align-items:center;gap:8px;margin-bottom:14px;width:100%;justify-content:center}
+
+/* ── ÁREA PRINCIPAL ── */
+.main-area{min-width:0}
+.toolbar-shop{background:#fff;border:2px solid #DADFE3;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.results-count{font-size:13px;color:var(--texto-mut)}
+.results-count strong{color:var(--azul-800)}
+.sort-select{border:1.5px solid #DADFE3;border-radius:6px;padding:8px 10px;font-size:13px;background:#fff;font-weight:600}
+
+.active-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.active-filter-chip{display:flex;align-items:center;gap:6px;background:var(--azul-100);color:var(--azul-700);font-size:11.5px;font-weight:600;padding:5px 8px 5px 12px;border-radius:99px}
+.active-filter-chip button{background:none;border:none;color:var(--azul-700);font-size:14px;line-height:1;padding:0 4px}
+
+/* ── GRID DE PRODUTOS ── */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.p-card{background:#fff;border:2px solid #DADFE3;display:flex;flex-direction:column;position:relative;transition:border-color .15s,box-shadow .15s,transform .15s}
+.p-card:hover{border-color:var(--azul-700);box-shadow:0 10px 26px rgba(6,36,63,.12);transform:translateY(-3px)}
+.p-card::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;height:4px;background:var(--amarelo-500);z-index:1}
+.p-img{aspect-ratio:1;background:linear-gradient(135deg,#eef0f2,#e2e6e9);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
+.p-img img{width:100%;height:100%;object-fit:cover}
+.p-img svg{width:30px;height:30px;color:#c2cdd6}
+.p-body{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.p-code{font-size:9.5px;color:#aab6c0;font-family:monospace;font-weight:600}
+.p-name{font-weight:700;font-size:12.5px;color:var(--texto);line-height:1.3;cursor:pointer;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px}
+.p-name:hover{color:var(--azul-700)}
+.p-cat{font-size:10px;color:var(--texto-mut);text-transform:uppercase;letter-spacing:.3px;font-weight:600}
+.p-price-row{margin-top:auto;padding-top:8px;border-top:1px solid #F2F4F6}
+.p-price{font-family:'Oswald',sans-serif;font-weight:700;font-size:19px;color:var(--azul-800)}
+.p-unit{font-size:10px;color:#aab6c0;margin-left:3px}
+.p-add-btn{margin-top:8px;width:100%;background:var(--azul-700);color:#fff;border:none;padding:9px;font-family:'Oswald',sans-serif;font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.3px;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s}
+.p-add-btn:hover{background:var(--azul-800)}
+.p-add-btn.in-cart{background:var(--verde)}
+.p-qty-row{display:flex;align-items:center;gap:0;margin-top:8px;border:2px solid var(--azul-700)}
+.p-qty-row button{flex:0 0 32px;height:32px;background:var(--azul-700);color:#fff;border:none;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.p-qty-row input{flex:1;text-align:center;border:none;font-weight:700;font-size:13px;width:30px;min-width:0}
+.p-qty-row .remove-btn{flex:0 0 32px;background:var(--vermelho)}
+
+/* ── PAGINAÇÃO ── */
+.paginacao{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:24px;flex-wrap:wrap}
+.pg-btn{min-width:34px;height:34px;padding:0 8px;border:2px solid #DADFE3;background:#fff;color:var(--texto-mut);font-weight:700;font-family:'Oswald',sans-serif;font-size:13px;cursor:pointer}
+.pg-btn:hover:not(:disabled){border-color:var(--azul-600);color:var(--azul-700)}
+.pg-btn.active{background:var(--azul-700);border-color:var(--azul-700);color:#fff}
+.pg-btn:disabled{opacity:.35;cursor:not-allowed}
+.pg-dots{color:#aab6c0;padding:0 4px;font-weight:700}
+
+.empty{text-align:center;padding:70px 20px;background:#fff;border:2px solid #DADFE3}
+.empty-icon{width:60px;height:60px;background:var(--azul-100);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px;transform:rotate(45deg)}
+.empty-icon span{transform:rotate(-45deg);display:inline-block}
+.empty h3{font-family:'Oswald',sans-serif;font-size:16px;text-transform:uppercase;color:var(--texto);margin-bottom:6px}
+.empty p{font-size:13px;color:var(--texto-mut)}
+
+/* ══════════ CARRINHO (DRAWER LATERAL) ══════════ */
+.cart-overlay{position:fixed;inset:0;background:rgba(6,36,63,.6);z-index:200;display:none}
+.cart-overlay.show{display:block}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:#fff;z-index:201;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease;box-shadow:-8px 0 30px rgba(0,0,0,.2)}
+.cart-drawer.show{transform:translateX(0)}
+.cart-header{background:var(--azul-900);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:4px solid var(--amarelo-500)}
+.cart-header h2{font-family:'Oswald',sans-serif;font-size:16px;text-transform:uppercase;letter-spacing:.4px}
+.cart-close{background:rgba(255,255,255,.1);border:none;color:#fff;width:32px;height:32px;border-radius:0;font-size:18px;cursor:pointer}
+.cart-items{flex:1;overflow-y:auto;padding:14px}
+.cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #F2F4F6}
+.cart-item-img{width:56px;height:56px;background:var(--cinza-bg);flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1.5px solid #DADFE3}
+.cart-item-img img{width:100%;height:100%;object-fit:cover}
+.cart-item-img svg{width:20px;height:20px;color:#c2cdd6}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:12.5px;font-weight:700;color:var(--texto);line-height:1.3;margin-bottom:4px}
+.cart-item-price{font-family:'Oswald',sans-serif;font-weight:700;color:var(--azul-800);font-size:14px}
+.cart-item-qty{display:flex;align-items:center;gap:0;border:1.5px solid #DADFE3;margin-top:6px;width:fit-content}
+.cart-item-qty button{width:24px;height:24px;background:var(--cinza-bg);border:none;font-weight:700;cursor:pointer}
+.cart-item-qty span{width:30px;text-align:center;font-size:12px;font-weight:700}
+.cart-item-remove{background:none;border:none;color:var(--vermelho);font-size:11px;font-weight:600;cursor:pointer;margin-top:4px;text-decoration:underline}
+.cart-footer{padding:18px 20px;border-top:2px solid #ECEFF1;background:#fafbfc}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.cart-total-label{font-family:'Oswald',sans-serif;font-size:13px;text-transform:uppercase;color:var(--texto-mut)}
+.cart-total-value{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;color:var(--azul-800)}
+.cart-checkout-btn{width:100%;background:var(--amarelo-500);color:var(--azul-900);border:none;padding:14px;font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:8px}
+.cart-checkout-btn:hover{background:var(--amarelo-600)}
+.cart-checkout-btn:disabled{opacity:.5;cursor:not-allowed}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--texto-mut)}
+.cart-empty svg{width:48px;height:48px;color:#DADFE3;margin-bottom:12px}
+
+/* ══════════ MODAL CHECKOUT ══════════ */
+.overlay-modal{position:fixed;inset:0;background:rgba(6,36,63,.65);z-index:300;display:none;align-items:center;justify-content:center;padding:16px}
+.overlay-modal.show{display:flex}
+.checkout-modal{background:#fff;width:100%;max-width:460px;max-height:92vh;overflow-y:auto;border-top:5px solid var(--amarelo-500)}
+.checkout-header{background:var(--azul-900);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+.checkout-header h2{font-family:'Oswald',sans-serif;font-size:15px;text-transform:uppercase}
+.checkout-body{padding:20px;display:flex;flex-direction:column;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;font-weight:700;color:var(--texto-mut);text-transform:uppercase;letter-spacing:.5px}
+.form-group input,.form-group textarea{border:2px solid #E4E9ED;padding:10px 12px;font-size:13px;outline:none;font-family:inherit}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--azul-600)}
+.form-error{font-size:11px;color:var(--vermelho)}
+.checkout-summary{background:var(--cinza-bg);padding:12px;font-size:12.5px;color:var(--texto-mut);max-height:140px;overflow-y:auto}
+.checkout-summary-item{display:flex;justify-content:space-between;padding:3px 0}
+.checkout-footer{padding:18px 20px;border-top:2px solid #ECEFF1;display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:7px;border:none;padding:11px 18px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;cursor:pointer;flex:1;justify-content:center}
+.btn-secondary{background:#fff;color:var(--texto);border:2px solid #DADFE3}
+.btn-amarelo{background:var(--amarelo-500);color:var(--azul-900)}
+.btn-amarelo:hover{background:var(--amarelo-600)}
+
+/* ══════════ MODAL DETALHE PRODUTO ══════════ */
+.detail-modal{background:#fff;width:100%;max-width:560px;max-height:92vh;overflow-y:auto}
+.detail-img-big{width:100%;aspect-ratio:1;background:var(--cinza-bg);display:flex;align-items:center;justify-content:center;position:relative}
+.detail-img-big img{width:100%;height:100%;object-fit:cover}
+.detail-img-big svg{width:50px;height:50px;color:#c2cdd6}
+.detail-close-x{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.9);border:none;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer}
+.detail-content{padding:22px}
+.detail-code{font-size:11px;color:#aab6c0;font-family:monospace;font-weight:600}
+.detail-name{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--texto);margin:6px 0 10px;text-transform:uppercase}
+.detail-cat-badge{display:inline-block;background:var(--azul-100);color:var(--azul-700);font-size:11px;font-weight:600;padding:4px 12px;margin-bottom:14px}
+.detail-desc{font-size:13.5px;color:var(--texto-mut);line-height:1.65;margin-bottom:18px}
+.detail-price-box{background:var(--cinza-bg);padding:16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.detail-price-big{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;color:var(--azul-800)}
+
+/* ══════════ TOAST ══════════ */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--verde);color:#fff;padding:13px 22px;font-weight:700;font-size:13px;z-index:400;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ══════════ FOOTER ══════════ */
+.shop-footer{background:var(--azul-900);padding:30px 24px;text-align:center;border-top:5px solid var(--amarelo-500);margin-top:30px}
+.shop-footer-logo{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;color:#fff;text-transform:uppercase}
+.shop-footer-logo .hl{color:var(--amarelo-500)}
+.shop-footer p{color:#9fb3c4;font-size:12px;margin-top:8px}
+
+.sidebar-overlay{display:none}
+@media(max-width:900px){
+  .shop-layout{grid-template-columns:1fr}
+  .sidebar{display:none;position:fixed;top:0;left:0;bottom:0;width:280px;max-width:82vw;z-index:151;overflow-y:auto;transform:translateX(-100%);transition:transform .25s}
+  .sidebar.show{display:block;transform:translateX(0)}
+  .sidebar-close{display:none;position:absolute;top:10px;right:10px;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;font-size:18px;cursor:pointer;z-index:1}
+  .sidebar.show .sidebar-close{display:block}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(6,36,63,.5);z-index:150}
+  .sidebar-overlay.show{display:block}
+  .mobile-filter-btn{display:flex}
+}
+@media(max-width:640px){
+  .logo-main{font-size:14px}
+  .logo-eyebrow{display:none}
+  .topbar-wa span{display:none}
+  .hero-slide{padding:24px 16px;text-align:center;justify-content:center}
+  .hero-slide-text{text-align:center}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ TOPBAR ══════════ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-mark">
+      <div class="logo-emblem">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M21 6.5a5.5 5.5 0 00-7.6 7.6L4.5 23 6 24.5l1.2-1.2 1.3 1.3 1.4-1.4-1.3-1.3L10 20.3l1.3 1.3 1.4-1.4-1.3-1.3 1.5-1.5a5.5 5.5 0 007.6-7.6l-3 3-2-2 3-3z" fill="#06243F"/></svg>
+      </div>
+      <div class="logo-text-wrap">
+        <div class="logo-eyebrow">Loja Online</div>
+        <div class="logo-main">FERRAGENS <span class="hl">SÃO FRANCISCO</span></div>
+      </div>
+    </div>
+    <div class="topbar-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="busca" placeholder="Buscar produto, código..." oninput="paginaAtual=1;renderGrid()">
+    </div>
+    <a class="topbar-wa" href="#" id="link-wa-topo" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0012.05 4a8.94 8.94 0 00-7.75 13.4L3 21l3.7-1.27a8.93 8.93 0 004.31 1.1h.01a8.94 8.94 0 008.93-8.93 8.86 8.86 0 00-2.35-5.58z"/></svg>
+      <span>Fale com a loja</span>
+    </a>
+    <button class="topbar-cart" onclick="abrirCarrinho()">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      Carrinho
+      <span class="badge" id="cart-badge" style="display:none">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- ══════════ CARROSSEL DE OFERTAS ══════════ -->
+<div class="hero-carousel">
+  <div class="hero-track" id="hero-track">
+    <div class="hero-slide">
+      <div class="hero-slide-text">
+        <span class="hero-slide-tag">✦ Bem-vindo</span>
+        <h2>Tudo em ferragens<br><span class="hl">na palma da sua mão</span></h2>
+        <p>Monte seu pedido com preços atualizados e envie direto para nosso WhatsApp — sem complicação.</p>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-slide-text">
+        <span class="hero-slide-tag">✦ Mais procurados</span>
+        <h2>Ferramentas elétricas<br><span class="hl">com fotos reais</span></h2>
+        <p>Confira nossa linha completa de furadeiras, esmerilhadeiras e muito mais.</p>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-slide-text">
+        <span class="hero-slide-tag">✦ Atendimento</span>
+        <h2>Dúvidas sobre<br><span class="hl">algum produto?</span></h2>
+        <p>Fale direto com a nossa equipe pelo WhatsApp — resposta rápida, sem robôs.</p>
+      </div>
+    </div>
+  </div>
+  <button class="hero-arrow left" onclick="moverSlide(-1)">‹</button>
+  <button class="hero-arrow right" onclick="moverSlide(1)">›</button>
+  <div class="hero-dots" id="hero-dots"></div>
+</div>
+
+<!-- ══════════ LAYOUT PRINCIPAL ══════════ -->
+<div class="shop-layout">
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('show');this.classList.remove('show')"></div>
+
+  <!-- SIDEBAR DE FILTROS -->
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" onclick="document.getElementById('sidebar').classList.remove('show');document.getElementById('sidebar-overlay').classList.remove('show')">×</button>
+    <div class="sidebar-head">Filtrar produtos</div>
+
+    <div class="filter-group">
+      <div class="filter-group-title" onclick="this.parentElement.classList.toggle('collapsed')">
+        Categoria
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="filter-list" id="filtro-categorias"></div>
+      <span class="filter-clear" onclick="limparFiltroCategoria()">Limpar categoria</span>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-group-title" onclick="this.parentElement.classList.toggle('collapsed')">
+        Faixa de preço
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="price-range">
+        <input type="text" id="preco-min" placeholder="Mín." oninput="paginaAtual=1;renderGrid()">
+        <span>—</span>
+        <input type="text" id="preco-max" placeholder="Máx." oninput="paginaAtual=1;renderGrid()">
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-group-title" onclick="this.parentElement.classList.toggle('collapsed')">
+        Disponibilidade
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <label class="filter-item">
+        <input type="checkbox" id="filtro-com-foto" onchange="paginaAtual=1;renderGrid()">
+        Apenas com foto
+      </label>
+    </div>
+  </aside>
+
+  <!-- ÁREA PRINCIPAL -->
+  <main class="main-area">
+    <button class="mobile-filter-btn" onclick="document.getElementById('sidebar').classList.add('show');document.getElementById('sidebar-overlay').classList.add('show')">☰ Filtros</button>
+
+    <div class="active-filters" id="active-filters"></div>
+
+    <div class="toolbar-shop">
+      <div class="results-count" id="results-count">Carregando produtos...</div>
+      <select class="sort-select" id="ordenar" onchange="paginaAtual=1;renderGrid()">
+        <option value="nome">Nome A–Z</option>
+        <option value="preco-asc">Menor preço</option>
+        <option value="preco-desc">Maior preço</option>
+        <option value="recentes">Com foto primeiro</option>
+      </select>
+    </div>
+
+    <div id="grid-content"></div>
+  </main>
+</div>
+
+<footer class="shop-footer">
+  <div class="shop-footer-logo">FERRAGENS <span class="hl">SÃO FRANCISCO</span></div>
+  <p>Loja online para consulta de preços e montagem de pedidos. O fechamento é feito via WhatsApp com nossa equipe.</p>
+</footer>
+
+<!-- ══════════ CARRINHO (DRAWER) ══════════ -->
+<div class="cart-overlay" id="cart-overlay" onclick="fecharCarrinho()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h2>Seu carrinho</h2>
+    <button class="cart-close" onclick="fecharCarrinho()">×</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total estimado</span>
+      <span class="cart-total-value" id="cart-total">R$ 0,00</span>
+    </div>
+    <button class="cart-checkout-btn" onclick="abrirCheckout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0012.05 4a8.94 8.94 0 00-7.75 13.4L3 21l3.7-1.27a8.93 8.93 0 004.31 1.1h.01a8.94 8.94 0 008.93-8.93 8.86 8.86 0 00-2.35-5.58z"/></svg>
+      Fechar pedido no WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- ══════════ MODAL CHECKOUT ══════════ -->
+<div class="overlay-modal" id="modal-checkout" onclick="fecharCheckoutFora(event)">
+  <div class="checkout-modal" onclick="event.stopPropagation()">
+    <div class="checkout-header">
+      <h2>Finalizar pedido</h2>
+      <button class="cart-close" onclick="fecharCheckout()">×</button>
+    </div>
+    <div class="checkout-body">
+      <p style="font-size:12.5px;color:var(--texto-mut)">Preencha seus dados — vamos te direcionar ao WhatsApp com o pedido já pronto para enviar.</p>
+      <div class="form-group">
+        <label>Seu nome *</label>
+        <input type="text" id="chk-nome" placeholder="Nome completo">
+        <span class="form-error" id="err-chk-nome"></span>
+      </div>
+      <div class="form-group">
+        <label>Telefone / WhatsApp *</label>
+        <input type="text" id="chk-telefone" placeholder="(85) 99999-8888">
+        <span class="form-error" id="err-chk-telefone"></span>
+      </div>
+      <div class="form-group">
+        <label>Observações (opcional)</label>
+        <textarea id="chk-obs" placeholder="Endereço de entrega, urgência, etc." rows="2" style="resize:vertical"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Resumo do pedido (<span id="chk-total-itens">0</span> itens)</label>
+        <div class="checkout-summary" id="checkout-summary"></div>
+      </div>
+    </div>
+    <div class="checkout-footer">
+      <button class="btn btn-secondary" onclick="fecharCheckout()">Voltar</button>
+      <button class="btn btn-amarelo" onclick="enviarPedidoWhatsapp()">Enviar pedido</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL DETALHE DO PRODUTO ══════════ -->
+<div class="overlay-modal" id="modal-detalhe" onclick="fecharDetalheFora(event)">
+  <div class="detail-modal" onclick="event.stopPropagation()">
+    <div class="detail-img-big" id="dt-img-wrap">
+      <button class="detail-close-x" onclick="fecharDetalhe()">×</button>
+    </div>
+    <div class="detail-content">
+      <div class="detail-code" id="dt-codigo"></div>
+      <div class="detail-name" id="dt-nome"></div>
+      <span class="detail-cat-badge" id="dt-categoria"></span>
+      <p class="detail-desc" id="dt-desc"></p>
+      <div class="detail-price-box">
+        <div>
+          <div class="detail-price-big" id="dt-preco">R$0,00</div>
+          <div style="font-size:11px;color:var(--texto-mut)" id="dt-unidade">por unidade</div>
+        </div>
+      </div>
+      <div id="dt-qty-area"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">✓ Produto adicionado ao carrinho!</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+<script src="produtos.js"></script>
+
+<script>
+// ══════════════════════════════════════════
+// CONFIG E DADOS
+// ══════════════════════════════════════════
+const WHATSAPP_NUMERO = '5596981148056'
+const firebaseConfig = {
+  apiKey: "AIzaSyAXxXsWFauaQCTktMNGl_mmmshALPtpIgM",
+  authDomain: "catalogo-fsf.firebaseapp.com",
+  projectId: "catalogo-fsf",
+  storageBucket: "catalogo-fsf.firebasestorage.app",
+  messagingSenderId: "864817621185",
+  appId: "1:864817621185:web:c5d3d83d1127d5df0e0c40"
+}
+firebase.initializeApp(firebaseConfig)
+const db = firebase.firestore()
+
+let produtos = []
+let carrinho = carregarCarrinho()
+let categoriaAtiva = ''
+let paginaAtual = 1
+const ITENS_POR_PAGINA = 40
+
+function R$(v){return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v||0)}
+function h(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+const PLACEHOLDER_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>`
+
+// ══════════════════════════════════════════
+// CARREGAR PRODUTOS DO FIRESTORE (tempo real)
+// ══════════════════════════════════════════
+function iniciarListenerProdutos(){
+  db.collection('produtos').onSnapshot(snap => {
+    produtos = []
+    snap.forEach(doc => produtos.push(doc.data()))
+    if(!produtos.length && typeof PRODUTOS_BASE !== 'undefined'){
+      produtos = PRODUTOS_BASE // fallback local se Firestore estiver vazio
+    }
+    renderFiltroCategorias()
+    renderGrid()
+  }, err => {
+    console.error('Erro ao conectar Firestore:', err)
+    if(typeof PRODUTOS_BASE !== 'undefined'){
+      produtos = PRODUTOS_BASE
+      renderFiltroCategorias()
+      renderGrid()
+    }
+  })
+}
+
+// ══════════════════════════════════════════
+// CARRINHO (localStorage do cliente)
+// ══════════════════════════════════════════
+const CARRINHO_KEY = 'fsf_carrinho_cliente_v1'
+function carregarCarrinho(){
+  try{const s=localStorage.getItem(CARRINHO_KEY);if(s)return JSON.parse(s)}catch(e){}
+  return {} // { produtoId: quantidade }
+}
+function salvarCarrinho(){
+  try{localStorage.setItem(CARRINHO_KEY, JSON.stringify(carrinho))}catch(e){}
+}
+
+function adicionarAoCarrinho(id, qtd){
+  qtd = qtd || 1
+  carrinho[id] = (carrinho[id] || 0) + qtd
+  salvarCarrinho()
+  atualizarBadgeCarrinho()
+  mostrarToast('✓ Produto adicionado ao carrinho!')
+}
+function definirQuantidade(id, qtd){
+  if(qtd <= 0){
+    delete carrinho[id]
+  } else {
+    carrinho[id] = qtd
+  }
+  salvarCarrinho()
+  atualizarBadgeCarrinho()
+}
+function removerDoCarrinho(id){
+  delete carrinho[id]
+  salvarCarrinho()
+  atualizarBadgeCarrinho()
+  renderCarrinho()
+}
+function totalItensCarrinho(){
+  return Object.values(carrinho).reduce((s,q)=>s+q, 0)
+}
+function totalValorCarrinho(){
+  let total = 0
+  for(const [id, qtd] of Object.entries(carrinho)){
+    const p = produtos.find(x => x.id === id)
+    if(p) total += (p.preco||0) * qtd
+  }
+  return total
+}
+function atualizarBadgeCarrinho(){
+  const n = totalItensCarrinho()
+  const badge = document.getElementById('cart-badge')
+  badge.textContent = n
+  badge.style.display = n > 0 ? 'flex' : 'none'
+}
+
+function mostrarToast(msg){
+  const t = document.getElementById('toast')
+  t.textContent = msg
+  t.classList.add('show')
+  setTimeout(()=>t.classList.remove('show'), 2200)
+}
+
+// ══════════════════════════════════════════
+// FILTROS
+// ══════════════════════════════════════════
+function renderFiltroCategorias(){
+  const cats = {}
+  produtos.forEach(p => {
+    if(p.ativo === false) return
+    cats[p.categoria] = (cats[p.categoria]||0) + 1
+  })
+  const ordenadas = Object.entries(cats).sort((a,b)=>a[0].localeCompare(b[0]))
+  const el = document.getElementById('filtro-categorias')
+  el.innerHTML = ordenadas.map(([cat, count]) => `
+    <label class="filter-item">
+      <input type="checkbox" ${categoriaAtiva===cat?'checked':''} onchange="toggleFiltroCategoria('${h(cat).replace(/'/g,"\\'")}')">
+      ${h(cat)}
+      <span class="count">${count}</span>
+    </label>
+  `).join('')
+}
+function toggleFiltroCategoria(cat){
+  categoriaAtiva = categoriaAtiva === cat ? '' : cat
+  paginaAtual = 1
+  renderFiltroCategorias()
+  renderGrid()
+}
+function limparFiltroCategoria(){
+  categoriaAtiva = ''
+  paginaAtual = 1
+  renderFiltroCategorias()
+  renderGrid()
+}
+
+function filtrarProdutos(){
+  const busca = document.getElementById('busca').value.toLowerCase().trim()
+  const ord = document.getElementById('ordenar').value
+  const comFoto = document.getElementById('filtro-com-foto').checked
+  const precoMin = parseFloat(document.getElementById('preco-min').value.replace(',','.')) || 0
+  const precoMaxStr = document.getElementById('preco-max').value.replace(',','.')
+  const precoMax = precoMaxStr ? parseFloat(precoMaxStr) : Infinity
+
+  let r = produtos.filter(p => p.ativo !== false)
+  if(categoriaAtiva) r = r.filter(p => p.categoria === categoriaAtiva)
+  if(busca) r = r.filter(p =>
+    (p.nome||'').toLowerCase().includes(busca) ||
+    (p.codigo||'').toLowerCase().includes(busca) ||
+    (p.descricao||'').toLowerCase().includes(busca)
+  )
+  if(comFoto) r = r.filter(p => !!p.imagem)
+  r = r.filter(p => (p.preco||0) >= precoMin && (p.preco||0) <= precoMax)
+
+  if(ord==='nome') r.sort((a,b)=>a.nome.localeCompare(b.nome))
+  if(ord==='preco-asc') r.sort((a,b)=>(a.preco||0)-(b.preco||0))
+  if(ord==='preco-desc') r.sort((a,b)=>(b.preco||0)-(a.preco||0))
+  if(ord==='recentes') r.sort((a,b)=>(b.imagem?1:0)-(a.imagem?1:0))
+  return r
+}
+
+function renderActiveFilters(){
+  const el = document.getElementById('active-filters')
+  const chips = []
+  if(categoriaAtiva) chips.push(`<div class="active-filter-chip">${h(categoriaAtiva)}<button onclick="limparFiltroCategoria()">×</button></div>`)
+  const busca = document.getElementById('busca').value
+  if(busca) chips.push(`<div class="active-filter-chip">"${h(busca)}"<button onclick="document.getElementById('busca').value='';paginaAtual=1;renderGrid()">×</button></div>`)
+  el.innerHTML = chips.join('')
+}
+
+// ══════════════════════════════════════════
+// PAGINAÇÃO
+// ══════════════════════════════════════════
+function renderPaginacao(totalItens){
+  const totalPaginas = Math.max(1, Math.ceil(totalItens/ITENS_POR_PAGINA))
+  if(paginaAtual > totalPaginas) paginaAtual = totalPaginas
+  if(totalPaginas <= 1) return ''
+  let botoes = []
+  const add = (p,label,ativo,disabled) => botoes.push(`<button class="pg-btn ${ativo?'active':''}" ${disabled?'disabled':''} onclick="irParaPagina(${p})">${label}</button>`)
+  add(paginaAtual-1,'‹',false,paginaAtual===1)
+  const janela = 2
+  let pulou = false
+  for(let i=1;i<=totalPaginas;i++){
+    if(i===1||i===totalPaginas||Math.abs(i-paginaAtual)<=janela){
+      add(i,i,i===paginaAtual,false); pulou=false
+    } else if(!pulou){
+      botoes.push('<span class="pg-dots">…</span>'); pulou=true
+    }
+  }
+  add(paginaAtual+1,'›',false,paginaAtual===totalPaginas)
+  return `<div class="paginacao">${botoes.join('')}</div>`
+}
+function irParaPagina(p){
+  paginaAtual = p
+  renderGrid()
+  document.getElementById('grid-content').scrollIntoView({behavior:'smooth',block:'start'})
+}
+
+// ══════════════════════════════════════════
+// RENDER GRID DE PRODUTOS
+// ══════════════════════════════════════════
+function renderGrid(){
+  renderActiveFilters()
+  const r = filtrarProdutos()
+  document.getElementById('results-count').innerHTML = `<strong>${r.length}</strong> produto${r.length!==1?'s':''} encontrado${r.length!==1?'s':''}`
+
+  const el = document.getElementById('grid-content')
+  if(!r.length){
+    el.innerHTML = `<div class="empty"><div class="empty-icon"><span>🔧</span></div><h3>Nenhum produto encontrado</h3><p>Tente outros termos ou ajuste os filtros.</p></div>`
+    return
+  }
+
+  const inicio = (paginaAtual-1)*ITENS_POR_PAGINA
+  const pagina = r.slice(inicio, inicio+ITENS_POR_PAGINA)
+  el.innerHTML = `<div class="product-grid">${pagina.map(p=>cardProdutoHTML(p)).join('')}</div>${renderPaginacao(r.length)}`
+}
+
+function cardProdutoHTML(p){
+  const imgBlock = p.imagem
+    ? `<img src="${h(p.imagem)}" alt="${h(p.nome)}" loading="lazy" onerror="this.parentElement.innerHTML=PLACEHOLDER_SVG">`
+    : PLACEHOLDER_SVG
+  const qtdAtual = carrinho[p.id] || 0
+  return `<div class="p-card">
+    <div class="p-img" onclick="abrirDetalhe('${p.id}')">${imgBlock}</div>
+    <div class="p-body">
+      ${p.codigo?`<div class="p-code">COD. ${h(p.codigo)}</div>`:''}
+      <div class="p-name" onclick="abrirDetalhe('${p.id}')">${h(p.nome)}</div>
+      <div class="p-cat">${h(p.categoria||'')}</div>
+      <div class="p-price-row">
+        <span class="p-price">${R$(p.preco)}</span><span class="p-unit">/${h(p.unidade||'un')}</span>
+      </div>
+      <div id="qty-area-${p.id}">${qtyAreaHTML(p.id, qtdAtual)}</div>
+    </div>
+  </div>`
+}
+
+function qtyAreaHTML(id, qtd){
+  if(qtd > 0){
+    return `<div class="p-qty-row">
+      <button onclick="alterarQtdCard('${id}',-1)">−</button>
+      <input type="text" value="${qtd}" readonly>
+      <button onclick="alterarQtdCard('${id}',1)">+</button>
+    </div>`
+  }
+  return `<button class="p-add-btn" onclick="adicionarAoCarrinho('${id}',1);atualizarQtyAreaCard('${id}')">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+    Adicionar
+  </button>`
+}
+function atualizarQtyAreaCard(id){
+  const el = document.getElementById('qty-area-'+id)
+  if(el) el.innerHTML = qtyAreaHTML(id, carrinho[id]||0)
+}
+function alterarQtdCard(id, delta){
+  const atual = carrinho[id] || 0
+  definirQuantidade(id, atual + delta)
+  atualizarQtyAreaCard(id)
+}
+
+// ══════════════════════════════════════════
+// CARROSSEL DE OFERTAS
+// ══════════════════════════════════════════
+let slideAtual = 0
+let totalSlides = 0
+function inicializarCarrossel(){
+  const slides = document.querySelectorAll('.hero-slide')
+  totalSlides = slides.length
+  const dotsEl = document.getElementById('hero-dots')
+  dotsEl.innerHTML = Array.from({length:totalSlides}).map((_,i)=>`<button class="hero-dot ${i===0?'active':''}" onclick="irParaSlide(${i})"></button>`).join('')
+  setInterval(()=>moverSlide(1), 6000)
+}
+function moverSlide(delta){
+  slideAtual = (slideAtual + delta + totalSlides) % totalSlides
+  atualizarCarrossel()
+}
+function irParaSlide(i){
+  slideAtual = i
+  atualizarCarrossel()
+}
+function atualizarCarrossel(){
+  document.getElementById('hero-track').style.transform = `translateX(-${slideAtual*100}%)`
+  document.querySelectorAll('.hero-dot').forEach((d,i)=>d.classList.toggle('active', i===slideAtual))
+}
+
+// ══════════════════════════════════════════
+// DETALHE DO PRODUTO
+// ══════════════════════════════════════════
+let produtoDetalheAtual = null
+function abrirDetalhe(id){
+  const p = produtos.find(x=>x.id===id)
+  if(!p) return
+  produtoDetalheAtual = p
+  document.getElementById('dt-codigo').textContent = p.codigo ? 'COD. '+p.codigo : ''
+  document.getElementById('dt-nome').textContent = p.nome
+  document.getElementById('dt-categoria').textContent = p.categoria
+  document.getElementById('dt-desc').textContent = p.descricao || 'Sem descrição cadastrada.'
+  document.getElementById('dt-preco').textContent = R$(p.preco)
+  document.getElementById('dt-unidade').textContent = 'por ' + (p.unidade||'unidade')
+
+  const imgWrap = document.getElementById('dt-img-wrap')
+  const closeBtn = '<button class="detail-close-x" onclick="fecharDetalhe()">×</button>'
+  imgWrap.innerHTML = (p.imagem ? `<img src="${h(p.imagem)}" alt="" onerror="this.onerror=null;this.style.display='none'">` : PLACEHOLDER_SVG) + closeBtn
+
+  document.getElementById('dt-qty-area').innerHTML = `<div id="qty-area-detail">${qtyAreaHTML(p.id, carrinho[p.id]||0)}</div>`
+  document.getElementById('modal-detalhe').classList.add('show')
+}
+function fecharDetalhe(){ document.getElementById('modal-detalhe').classList.remove('show') }
+function fecharDetalheFora(e){ if(e.target.id==='modal-detalhe') fecharDetalhe() }
+
+// ══════════════════════════════════════════
+// CARRINHO (DRAWER)
+// ══════════════════════════════════════════
+function abrirCarrinho(){
+  renderCarrinho()
+  document.getElementById('cart-overlay').classList.add('show')
+  document.getElementById('cart-drawer').classList.add('show')
+}
+function fecharCarrinho(){
+  document.getElementById('cart-overlay').classList.remove('show')
+  document.getElementById('cart-drawer').classList.remove('show')
+}
+function renderCarrinho(){
+  const ids = Object.keys(carrinho)
+  const el = document.getElementById('cart-items')
+  const footer = document.getElementById('cart-footer')
+
+  if(!ids.length){
+    el.innerHTML = `<div class="cart-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg><div>Seu carrinho está vazio</div></div>`
+    footer.style.display = 'none'
+    return
+  }
+
+  footer.style.display = 'block'
+  el.innerHTML = ids.map(id => {
+    const p = produtos.find(x=>x.id===id)
+    if(!p) return ''
+    const qtd = carrinho[id]
+    const imgBlock = p.imagem ? `<img src="${h(p.imagem)}" onerror="this.parentElement.innerHTML=PLACEHOLDER_SVG">` : PLACEHOLDER_SVG
+    return `<div class="cart-item">
+      <div class="cart-item-img">${imgBlock}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${h(p.nome)}</div>
+        <div class="cart-item-price">${R$(p.preco)}</div>
+        <div class="cart-item-qty">
+          <button onclick="alterarQtdCarrinho('${id}',-1)">−</button>
+          <span>${qtd}</span>
+          <button onclick="alterarQtdCarrinho('${id}',1)">+</button>
+        </div>
+        <button class="cart-item-remove" onclick="removerDoCarrinho('${id}')">Remover</button>
+      </div>
+    </div>`
+  }).join('')
+
+  document.getElementById('cart-total').textContent = R$(totalValorCarrinho())
+}
+function alterarQtdCarrinho(id, delta){
+  const atual = carrinho[id] || 0
+  definirQuantidade(id, atual + delta)
+  renderCarrinho()
+  atualizarQtyAreaCard(id)
+}
+
+// ══════════════════════════════════════════
+// CHECKOUT
+// ══════════════════════════════════════════
+function abrirCheckout(){
+  const ids = Object.keys(carrinho)
+  if(!ids.length) return
+  document.getElementById('chk-total-itens').textContent = totalItensCarrinho()
+  document.getElementById('checkout-summary').innerHTML = ids.map(id=>{
+    const p = produtos.find(x=>x.id===id)
+    if(!p) return ''
+    return `<div class="checkout-summary-item"><span>${carrinho[id]}x ${h(p.nome)}</span><span>${R$((p.preco||0)*carrinho[id])}</span></div>`
+  }).join('') + `<div class="checkout-summary-item" style="font-weight:800;border-top:1px solid #ddd;padding-top:6px;margin-top:4px"><span>TOTAL</span><span>${R$(totalValorCarrinho())}</span></div>`
+  document.getElementById('modal-checkout').classList.add('show')
+}
+function fecharCheckout(){ document.getElementById('modal-checkout').classList.remove('show') }
+function fecharCheckoutFora(e){ if(e.target.id==='modal-checkout') fecharCheckout() }
+
+function enviarPedidoWhatsapp(){
+  const nome = document.getElementById('chk-nome').value.trim()
+  const telefone = document.getElementById('chk-telefone').value.trim()
+  const obs = document.getElementById('chk-obs').value.trim()
+  let ok = true
+  document.getElementById('err-chk-nome').textContent = ''
+  document.getElementById('err-chk-telefone').textContent = ''
+  if(!nome){ document.getElementById('err-chk-nome').textContent = 'Informe seu nome'; ok = false }
+  if(!telefone){ document.getElementById('err-chk-telefone').textContent = 'Informe seu telefone'; ok = false }
+  if(!ok) return
+
+  const ids = Object.keys(carrinho)
+  let texto = `🛒 *NOVO PEDIDO — Ferragens São Francisco*\n\n`
+  texto += `*Cliente:* ${nome}\n*Telefone:* ${telefone}\n\n`
+  texto += `*Itens do pedido:*\n`
+  ids.forEach(id => {
+    const p = produtos.find(x=>x.id===id)
+    if(!p) return
+    const qtd = carrinho[id]
+    texto += `▪ ${qtd}x ${p.nome} (Cód. ${p.codigo||'-'}) — ${R$(p.preco)} cada = ${R$((p.preco||0)*qtd)}\n`
+  })
+  texto += `\n*TOTAL ESTIMADO: ${R$(totalValorCarrinho())}*\n`
+  if(obs) texto += `\n*Observações:* ${obs}\n`
+  texto += `\n_Forma de pagamento e confirmação final a combinar com a equipe._`
+
+  const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(texto)}`
+  window.open(url, '_blank')
+  fecharCheckout()
+}
+
+// ══════════════════════════════════════════
+// INICIALIZAR
+// ══════════════════════════════════════════
+document.getElementById('link-wa-topo').href = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Olá! Vim pela loja online da Ferragens São Francisco e gostaria de tirar uma dúvida.')}`
+inicializarCarrossel()
+atualizarBadgeCarrinho()
+iniciarListenerProdutos()
+</script>
+
+</body>
+</html>
